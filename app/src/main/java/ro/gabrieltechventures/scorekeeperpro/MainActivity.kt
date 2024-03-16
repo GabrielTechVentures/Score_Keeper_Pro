@@ -10,7 +10,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import org.koin.androidx.viewmodel.ext.android.getViewModel
 import ro.gabrieltechventures.scorekeeperpro.player_list.PlayerListScreen
+import ro.gabrieltechventures.scorekeeperpro.player_list.PlayerListViewModel
 import ro.gabrieltechventures.scorekeeperpro.ui.theme.ScoreKeeperProTheme
 
 class MainActivity : ComponentActivity() {
@@ -23,7 +25,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-PlayerListScreen()
+                    val viewModel=getViewModel<PlayerListViewModel>()
+PlayerListScreen(viewModel)
                 }
             }
         }
