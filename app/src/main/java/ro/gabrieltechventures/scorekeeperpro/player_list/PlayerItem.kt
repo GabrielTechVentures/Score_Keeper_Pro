@@ -22,7 +22,7 @@ fun PlayerItem(
             Column(
 
             ){
-                Text(text = player.name)
+                Text(text = player.maximumScore)
             }
     }
 

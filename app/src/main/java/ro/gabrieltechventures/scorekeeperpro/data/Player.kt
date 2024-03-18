@@ -9,7 +9,10 @@ data class Player(
 
     @ColumnInfo(name = "player-name")
     var name:String="",
-
+    @ColumnInfo(name = "maximum-score")
+    var maximumScore:String="0",
+    @ColumnInfo(name = "current-score")
+    var currentScore:String="0",
     @PrimaryKey(autoGenerate = true)
-    val id:Int?=null
+    val id:Int?=null,
 )

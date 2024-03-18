@@ -14,4 +14,5 @@ interface PlayerRepository {
     fun getAllPlayers(): Flow<List<Player>>
 
     suspend fun getPlayerById(id:Int):Player?
+    suspend fun updateAllPlayers(players:List<Player>, maximumScore:String)
 }
