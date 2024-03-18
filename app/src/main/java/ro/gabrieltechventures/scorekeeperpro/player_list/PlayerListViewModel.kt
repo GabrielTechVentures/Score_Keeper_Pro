@@ -7,7 +7,6 @@
     import androidx.lifecycle.ViewModel
     import androidx.lifecycle.viewModelScope
     import kotlinx.coroutines.channels.Channel
-    import kotlinx.coroutines.flow.collect
 
     import kotlinx.coroutines.flow.receiveAsFlow
     import kotlinx.coroutines.launch
@@ -21,6 +20,8 @@
 
 
         var showAddPlayerDialog by mutableStateOf(false)
+            private set
+        var animationPlayed by mutableStateOf(value = false)
             private set
     var showCustomizeScoreDialog by mutableStateOf(false)
         private set
@@ -39,7 +40,7 @@
 
         init {
             viewModelScope.launch {
-                repository.getAllPlayers().collect(){
+                repository.getAllPlayers().collect{
                     players->//List<Player>
                     allPlayers=players
                     maximumScore= allPlayers.firstOrNull()?.maximumScore ?: "0"
@@ -103,6 +104,9 @@
                     else{
                         sendUiEvent(UiEvent.showToast("Set maximum score field cannot be empty"))
                     }
+                }
+                is PlayerListEvent.animationChange->{
+                    animationPlayed=true
                 }
             }//when
         }

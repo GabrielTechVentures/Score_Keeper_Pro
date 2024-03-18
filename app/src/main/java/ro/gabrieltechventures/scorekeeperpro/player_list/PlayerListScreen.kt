@@ -1,7 +1,6 @@
 package ro.gabrieltechventures.scorekeeperpro.player_list
 
 import android.content.Context
-import android.graphics.drawable.Icon
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -25,24 +24,17 @@ import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.ShapeDefaults
-import androidx.compose.material3.Shapes
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -55,8 +47,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import kotlinx.coroutines.flow.collect
-import ro.gabrieltechventures.scorekeeperpro.data.Player
 import ro.gabrieltechventures.scorekeeperpro.ui.theme.UiEvent
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -85,7 +75,6 @@ fun PlayerListScreen(
                 Text(text = "Score Keeper Pro", modifier = Modifier.fillMaxWidth(), fontSize = 24.sp, fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center) },
                 colors = TopAppBarDefaults.mediumTopAppBarColors(containerColor = Color.Red)
-
             )
         },
         floatingActionButton = {
@@ -243,8 +232,6 @@ fun PlayerListScreen(
                         }
                     }
                 }
-
             })
     }
-
 }

@@ -14,5 +14,6 @@ sealed class PlayerListEvent {
 
     data class onCustomizeScoreChange(val score:String):PlayerListEvent()
     object onCustomizeDoneBtnClick:PlayerListEvent()
+    object animationChange:PlayerListEvent()
 
 }

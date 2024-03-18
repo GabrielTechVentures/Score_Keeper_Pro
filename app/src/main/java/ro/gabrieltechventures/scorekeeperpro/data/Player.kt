@@ -6,7 +6,10 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "player-table")
 data class Player(
-
+    @ColumnInfo(name="games-won")
+    var gamesWon:Int=0,
+    @ColumnInfo(name = "is-winner")
+    var hasWon:Boolean=false,
     @ColumnInfo(name = "player-name")
     var name:String="",
     @ColumnInfo(name = "maximum-score")
