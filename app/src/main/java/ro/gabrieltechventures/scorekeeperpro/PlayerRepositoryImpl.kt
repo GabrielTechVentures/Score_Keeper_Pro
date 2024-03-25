@@ -22,7 +22,7 @@ class PlayerRepositoryImpl(
         dao.deletePlayer(player)
     }
 
-    override suspend fun updateAllPlayers(players:List<Player>, maximumScore:String) {
+    override suspend fun updateAllPlayers(players:List<Player>, maximumScore:String,) {
         players.forEach()
         {player->
             val updatedPlayer=player.copy(maximumScore = maximumScore)
@@ -31,12 +31,46 @@ class PlayerRepositoryImpl(
 
     }
 
+    override suspend fun updatePlayersWinStatus(players: List<Player>) {
+
+            players.forEach()
+            {player->
+                val updatedPlayer=player.copy(hasWon = false)
+                dao.updatePlayer(updatedPlayer)
+            }
+        }
+
+
+    override suspend fun updateAllPlayersScore(
+        players: List<Player>,
+        gamesWon: Int,
+        currentScore: String,
+
+    ) {
+        players.forEach {
+            player ->
+            val updatedPlayer=player.copy(gamesWon = 0, currentScore = "0", percentage = 0f)
+            dao.updatePlayer(updatedPlayer)
+        }
+    }
+
     override fun getAllPlayers(): Flow<List<Player>> {
         return dao.getAllPlayers()
     }
 
     override suspend fun getPlayerById(id: Int): Player? {
         return dao.getPlayerById(id)
+    }
+    override suspend fun updateAfterFinishedGame(
+        players: List<Player>,
+        currentScore: String,
+
+        ) {
+        players.forEach {
+                player ->
+            val updatedPlayer=player.copy(currentScore = "0", percentage = 0f)
+            dao.updatePlayer(updatedPlayer)
+        }
     }
 
 }

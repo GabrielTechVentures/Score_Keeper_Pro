@@ -6,6 +6,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "player-table")
 data class Player(
+    @ColumnInfo(name = "percentage")
+    var percentage:Float=0f,
     @ColumnInfo(name="games-won")
     var gamesWon:Int=0,
     @ColumnInfo(name = "is-winner")
