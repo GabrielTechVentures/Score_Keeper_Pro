@@ -31,7 +31,8 @@ import ro.gabrieltechventures.scorekeeperpro.data.Player
 
 @Composable
 fun PlayerItem(
-    player: Player
+    player: Player,
+    onEvent:(PlayerListEvent)->Unit
 )
 {
     Card(modifier= Modifier
@@ -43,81 +44,103 @@ fun PlayerItem(
             modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.SpaceEvenly,
                 horizontalAlignment = Alignment.CenterHorizontally
-            ){
-                Row(modifier=Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                    Text( modifier = Modifier.padding(start = 16.dp, top = 4.dp, bottom = 4.dp),
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        modifier = Modifier.padding(start = 16.dp, top = 4.dp, bottom = 4.dp),
                         text = player.name.capitalize(),
-                        fontSize = 32.sp, color = Color.Black)
-                    Button( modifier = Modifier.padding(end = 24.dp, top = 4.dp, bottom = 4.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = Color.Red,
+                        fontSize = 32.sp, color = Color.Black
+                    )
+                    Button(modifier = Modifier.padding(end = 24.dp, top = 4.dp, bottom = 4.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color.Red,
                             contentColor = Color.White,
-                            ),
+                        ),
 
-                        onClick = { /*TODO*/ }) {
-                        Text(text = "Add score", fontSize = 16.sp,
-                            fontWeight = FontWeight.Bold)
+                        onClick = { onEvent(PlayerListEvent.onAddScoreBtnClick(player)) }) {
+                        Text(
+                            text = "Add score", fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold
+                        )
 
                     }
                 }//player.currentScore.toFloat()
-                Row (modifier= Modifier
-                    .fillMaxWidth(),
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(),
                     horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically
 
-                   /* verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween*/){
+                    /* verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween*/
+                ) {
 
-                    val percentage = if (player.maximumScore.toFloatOrNull() != null && player.maximumScore.toFloat() != 0f) {
-                        1f / player.maximumScore.toFloat() * 50f
-                    } else {
-                        0f
+                    val percentage =
+                        if (player.maximumScore.toFloatOrNull() != null && player.maximumScore.toFloat() != 0f) {
+                            1f / player.maximumScore.toFloat() * 50f
+                        } else {
+                            0f
+                        }
+
+                    if (player.hasWon)
+                    {
+                        PulsatingButton { onEvent(PlayerListEvent.onWinnerBtnPressed(player))
+                        }
+
+                    }
+                    else
+                    {
+                        Spacer(modifier = Modifier.width(110.dp))
                     }
 
-                     Spacer(modifier = Modifier.width(100.dp))
+
                     CircularProgressBar(
-                        percentage = 0.5f,
-                        currentScore = 500,//player.currentScore.toIntOrNull()?:0,
-                        maximumScore = player.maximumScore.toIntOrNull()?:0,
-                        )
+                        percentage = player.percentage,
+                        currentScore = player.currentScore.toIntOrNull() ?: 0,
+                        maximumScore = player.maximumScore.toIntOrNull() ?: 0,
+                    )
 
 
                     Spacer(modifier = Modifier.weight(1f))
-                       IconButton(
-                           colors = IconButtonDefaults.iconButtonColors(contentColor = Color.Black),
+                    IconButton(
+                        colors = IconButtonDefaults.iconButtonColors(contentColor = Color.Black),
 
-                           onClick = { /*TODO*/ }
-                       )
-                       {
-                           Icon(
+                        onClick = { onEvent(PlayerListEvent.onUpdatePlayerClick(player)) }
+                    )
+                    {
+                        Icon(
 
-                               imageVector = Icons.Default.Edit,
-                               contentDescription = "EditBtn",
-                           )
-                       }//iconbtn
-                       IconButton(
-                           colors = IconButtonDefaults.iconButtonColors(contentColor = Color.Black),
-                           modifier = Modifier.padding(end = 16.dp),
-                           onClick = { /*TODO*/ }
-                       )
-                       {
-                           Icon(
+                            imageVector = Icons.Default.Edit,
+                            contentDescription = "EditBtn",
+                        )
+                    }//iconbtn
+                    IconButton(
+                        colors = IconButtonDefaults.iconButtonColors(contentColor = Color.Black),
+                        modifier = Modifier.padding(end = 16.dp),
+                        onClick = { onEvent(PlayerListEvent.onDeletePlayerClick(player)) }
+                    )
+                    {
+                        Icon(
 
-                               imageVector = Icons.Default.Delete,
-                               contentDescription = "deleteBtn",
-                           )
-                       }//iconbtn
-
+                            imageVector = Icons.Default.Delete,
+                            contentDescription = "deleteBtn",
+                        )
+                    }//iconbtn
 
 
                 }//row
-        Text(
-            text = "Games won: ${player.gamesWon}",
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.Black,
-            modifier = Modifier.padding(bottom = 8.dp)
-        )
+                Text(
+                    text = "Games won: ${player.gamesWon}",
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Black,
+                    modifier = Modifier.padding(bottom = 8.dp)
+                )
+            }
+
 
             }//column
     }
 
-}

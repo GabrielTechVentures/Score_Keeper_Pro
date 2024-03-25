@@ -15,4 +15,11 @@ interface PlayerRepository {
 
     suspend fun getPlayerById(id:Int):Player?
     suspend fun updateAllPlayers(players:List<Player>, maximumScore:String)
+    suspend fun updateAllPlayersScore(players: List<Player>, gamesWon:Int, currentScore:String)
+    suspend fun updatePlayersWinStatus(players:List<Player>)
+    suspend fun  updateAfterFinishedGame(
+        players: List<Player>,
+        currentScore: String,
+
+        )
 }
